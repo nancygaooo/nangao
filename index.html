@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nan Gao | Nankai University</title>
+<meta name="description" content="Dr Nan Gao is an Associate Professor at the College of Software, Nankai University, working on ubiquitous computing, mobile sensing and human-computer interaction.">
+<link rel="canonical" href="https://nancygao.com/">
+<meta property="og:title" content="Nan Gao | Nankai University">
+<meta property="og:description" content="Associate Professor, College of Software, Nankai University. Ubiquitous computing, mobile sensing and HCI.">
+<meta property="og:url" content="https://nancygao.com/">
+<meta property="og:image" content="https://nancygao.com/wp-content/uploads/2023/12/head1-1024x980.jpg">
+<link rel="icon" href="wp-content/uploads/2022/08/cropped-headshot2_2-32x32.png" sizes="32x32">
+<link rel="icon" href="wp-content/uploads/2022/08/cropped-headshot2_2-192x192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="wp-content/uploads/2022/08/cropped-headshot2_2-180x180.png">
+<script>
+  /* 在页面渲染前确定语言，避免闪烁。默认英文；?lang=zh 或之前的选择优先 */
+  (function () {
+    var lang = 'en';
+    try {
+      var q = new URLSearchParams(location.search).get('lang');
+      if (q === 'zh' || q === 'en') lang = q;
+      else if (localStorage.getItem('lang') === 'zh') lang = 'zh';
+    } catch (e) {}
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  })();
+</script>
+<style>
+:root {
+  --ink: #231d26;
+  --muted: #6b6270;
+  --faint: #9a929f;
+  --accent: #6b1f61;        /* 南开紫 */
+  --accent-soft: #f6eff5;
+  --rule: #e9e3e8;
+  --bg: #ffffff;
+  --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --nav-h: 60px;
+}
+
+/* 语言切换：class="en" 只在英文下显示，class="zh" 只在中文下显示 */
+html[lang="en"] .zh, html[lang="zh-CN"] .en { display: none !important; }
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--sans); font-size: 17px; line-height: 1.7;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+html[lang="zh-CN"] body { line-height: 1.85; }
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(107,31,97,.25); }
+a:hover { border-bottom-color: var(--accent); }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+img { max-width: 100%; height: auto; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+/* ---------- 语言切换按钮（始终固定在右上角） ---------- */
+.lang-switch {
+  position: fixed; top: 12px; right: 20px; z-index: 60;
+  display: flex; border: 1px solid var(--rule); border-radius: 999px; background: #fff; padding: 3px;
+}
+.lang-switch button {
+  font: inherit; font-size: 14px; line-height: 1; padding: 8px 13px; border: 0; border-radius: 999px;
+  background: transparent; color: var(--muted); cursor: pointer;
+}
+.lang-switch button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+
+/* ---------- 顶部导航：页面顶端隐藏，下拉后渐显 ---------- */
+.topnav {
+  position: fixed; inset: 0 0 auto 0; height: var(--nav-h); z-index: 50;
+  background: rgba(255,255,255,.94); backdrop-filter: saturate(160%) blur(10px); -webkit-backdrop-filter: saturate(160%) blur(10px);
+  border-bottom: 1px solid var(--rule);
+  opacity: 0; transform: translateY(-10px); pointer-events: none;
+  transition: opacity .35s ease, transform .35s ease;
+}
+.topnav.show { opacity: 1; transform: none; pointer-events: auto; }
+.topnav .wrap { max-width: 1280px; height: 100%; display: flex; align-items: center; gap: 24px; padding-right: 150px; }
+.brand { font-family: var(--serif); font-size: 20px; color: var(--ink); border: 0; white-space: nowrap; }
+.topnav ul { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.topnav ul::-webkit-scrollbar { display: none; }
+.topnav ul a {
+  display: block; padding: 6px 9px; font-size: 15px; color: var(--muted); border: 0; border-radius: 6px; white-space: nowrap;
+}
+.topnav ul a:hover { color: var(--ink); background: var(--accent-soft); }
+.topnav ul a.active { color: var(--accent); background: var(--accent-soft); }
+
+/* ---------- 首屏：左侧个人卡片 + 右侧简介 ---------- */
+.hero { padding: 96px 0 64px; }
+.hero .wrap { display: grid; grid-template-columns: 240px 1fr; gap: 64px; align-items: start; }
+.profile { text-align: center; }
+.portrait { width: 220px; aspect-ratio: 1; object-fit: cover; border-radius: 50%; display: block; margin: 0 auto 22px; }
+.profile h1 { font-family: var(--serif); font-weight: 400; font-size: 36px; line-height: 1.15; margin: 0; }
+.alt-name { margin: 2px 0 12px; font-family: var(--serif); font-size: 19px; color: var(--faint); }
+.profile .role { margin: 0 0 18px; font-size: 16px; line-height: 1.6; color: var(--muted); }
+.icons { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+.icons a {
+  width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--rule); border-radius: 50%; color: var(--muted); transition: color .2s, border-color .2s, background .2s;
+}
+.icons a:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.icons svg { width: 20px; height: 20px; }
+.about-title { font-family: var(--serif); font-weight: 400; font-size: 30px; color: var(--accent); margin: 8px 0 20px; }
+.bio p { margin: 0 0 16px; max-width: 70ch; }
+.notice {
+  margin: 0 0 26px; padding: 16px 20px; background: var(--accent-soft); border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0; font-size: 16px; max-width: 70ch;
+}
+.notice strong { color: var(--accent); }
+
+/* ---------- 通用版块：左侧标题 + 右侧内容 ---------- */
+.section { border-top: 1px solid var(--rule); scroll-margin-top: calc(var(--nav-h) + 8px); }
+.section .wrap { display: grid; grid-template-columns: 190px 1fr; gap: 48px; padding-top: 60px; padding-bottom: 60px; }
+.section h2 {
+  font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.2; color: var(--accent);
+  margin: 0; position: sticky; top: calc(var(--nav-h) + 24px); align-self: start;
+}
+.section h2 .sub { display: block; margin-top: 8px; font-family: var(--sans); font-size: 14.5px; line-height: 1.5; color: var(--muted); }
+.cat { display: block; width: 96px; height: auto; margin-top: 20px; }
+
+/* 研究方向：一排三列 */
+.research { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.research img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; border: 1px solid var(--rule); margin-bottom: 14px; }
+.research h3 { font-size: 19px; line-height: 1.35; margin: 0 0 8px; }
+.research p { margin: 0 0 8px; font-size: 15.5px; line-height: 1.65; }
+.research .rel { font-size: 14.5px; color: var(--muted); }
+.intro { color: var(--muted); margin: 0 0 28px; font-size: 16px; }
+h3 { font-family: var(--serif); font-weight: 400; font-size: 22px; margin: 40px 0 14px; color: var(--ink); }
+h3:first-child { margin-top: 0; }
+
+/* 时间 + 内容 的行 */
+.rows > li { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 9px 0; }
+.rows > li + li { border-top: 1px dashed var(--rule); }
+.rows .when { color: var(--faint); font-size: 15px; font-variant-numeric: tabular-nums; padding-top: 1px; }
+.rows.narrow > li { grid-template-columns: 64px 1fr; }
+
+details.more { margin-top: 18px; }
+details.more summary {
+  display: inline-block; cursor: pointer; list-style: none; font-size: 15px; color: var(--accent);
+  padding: 7px 16px; border: 1px solid rgba(107,31,97,.35); border-radius: 999px;
+}
+details.more summary::-webkit-details-marker { display: none; }
+details.more[open] summary { margin-bottom: 14px; }
+details.more[open] .closed, details.more:not([open]) .opened { display: none; }
+
+/* 论文 */
+.year { font-family: var(--serif); font-size: 22px; color: var(--faint); margin: 26px 0 0; }
+.year:first-of-type { margin-top: 0; }
+.pubs > li { padding: 14px 0; }
+.pubs > li + li { border-top: 1px dashed var(--rule); }
+.pub-title { font-weight: 600; line-height: 1.5; margin-bottom: 4px; }
+.pub-authors { color: var(--muted); font-size: 15.5px; }
+.pub-authors b { color: var(--ink); font-weight: 600; }
+.pub-venue { font-size: 15.5px; color: var(--muted); margin-top: 2px; }
+.pub-venue i { color: var(--ink); }
+.tag {
+  display: inline-block; font-size: 13px; line-height: 1.4; padding: 1px 8px; margin: 0 4px 0 0;
+  border: 1px solid var(--rule); border-radius: 4px; color: var(--muted); font-style: normal; white-space: nowrap;
+}
+.tag.award { border-color: var(--accent); background: var(--accent); color: #fff; }
+.pub-links { margin-left: 6px; font-size: 14.5px; white-space: nowrap; }
+.pub-links a { margin-right: 10px; }
+.meta-line { display: inline; }
+
+figure { margin: 22px 0 0; }
+figcaption { font-size: 14.5px; color: var(--muted); margin-top: 8px; }
+
+/* 学术服务 */
+.svc > li { display: grid; grid-template-columns: 200px 1fr; gap: 20px; padding: 9px 0; }
+.svc > li + li { border-top: 1px dashed var(--rule); }
+.svc .role-name { color: var(--ink); font-weight: 600; font-size: 15.5px; }
+.plain > li { padding: 5px 0 5px 18px; position: relative; }
+.plain > li::before { content: ""; position: absolute; left: 2px; top: .8em; width: 6px; height: 6px; border-radius: 50%; background: var(--rule); }
+
+/* 个人 */
+.personal > li { display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 9px 0; }
+.personal > li + li { border-top: 1px dashed var(--rule); }
+.personal .k { font-weight: 600; }
+.quote { font-family: var(--serif); font-size: 21px; color: var(--accent); }
+
+/* 联系 */
+.contact li { display: flex; gap: 12px; align-items: flex-start; padding: 6px 0; }
+.contact svg { width: 20px; height: 20px; flex: none; margin-top: 4px; color: var(--accent); }
+.map { margin-top: 30px; max-width: 320px; }
+
+footer { border-top: 1px solid var(--rule); padding: 28px 0 40px; color: var(--faint); font-size: 14px; }
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 1080px) and (min-width: 821px) {
+  .research { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 820px) {
+  body { font-size: 16px; }
+  .wrap { padding: 0 20px; }
+  .hero { padding: 76px 0 44px; }
+  .hero .wrap { grid-template-columns: 1fr; gap: 32px; }
+  .portrait { width: 150px; }
+  .about-title { margin-top: 0; }
+  .section .wrap { grid-template-columns: 1fr; gap: 20px; padding-top: 44px; padding-bottom: 44px; }
+  .section h2 { position: static; font-size: 26px; }
+  .section h2 { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+  .cat { width: 64px; margin: 0; flex: none; }
+  .section h2 .sub { display: none; }
+  .research { grid-template-columns: 1fr; gap: 32px; }
+  .rows > li, .svc > li, .personal > li { grid-template-columns: 1fr; gap: 0; }
+  .rows.narrow > li { grid-template-columns: 52px 1fr; gap: 12px; }
+  .topnav .wrap { padding-right: 120px; gap: 10px; }
+  .brand { display: none; }
+  .topnav ul a { padding: 6px 8px; font-size: 14.5px; }
+  .lang-switch { right: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="lang-switch" role="group" aria-label="Language / 语言">
+  <button type="button" data-lang="en" aria-pressed="true">EN</button>
+  <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+</div>
+
+<nav class="topnav" aria-label="Sections">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="en">Nan Gao</span><span class="zh">高楠</span></a>
+    <ul>
+      <li><a href="#top"><span class="en">About</span><span class="zh">简介</span></a></li>
+      <li><a href="#research"><span class="en">Research</span><span class="zh">研究方向</span></a></li>
+      <li><a href="#news"><span class="en">News</span><span class="zh">动态</span></a></li>
+      <li><a href="#publications"><span class="en">Publications</span><span class="zh">论文</span></a></li>
+      <li><a href="#awards"><span class="en">Awards</span><span class="zh">荣誉</span></a></li>
+      <li><a href="#funding"><span class="en">Funding</span><span class="zh">科研项目</span></a></li>
+      <li><a href="#teaching"><span class="en">Teaching</span><span class="zh">教学</span></a></li>
+      <li><a href="#talks"><span class="en">Talks</span><span class="zh">学术报告</span></a></li>
+      <li><a href="#service"><span class="en">Service</span><span class="zh">学术服务</span></a></li>
+      <li><a href="#personal"><span class="en">Personal</span><span class="zh">个人</span></a></li>
+      <li><a href="#contact"><span class="en">Contact</span><span class="zh">联系</span></a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ==================== 简介 About ==================== -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <aside class="profile">
+      <img class="portrait" src="wp-content/uploads/2023/12/head1-1024x980.jpg" alt="Portrait of Nan Gao" width="220" height="220">
+      <h1><span class="en">Nan Gao</span><span class="zh">高楠</span></h1>
+      <p class="alt-name"><span class="en">高楠</span><span class="zh">Nan Gao</span></p>
+      <p class="role">
+        <span class="en">Associate Professor<br>College of Software<br>Nankai University</span>
+        <span class="zh">副教授<br>南开大学软件学院</span>
+      </p>
+      <div class="icons">
+          <a href="mailto:nan.gao@nankai.edu.cn" title="Email" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 6 8-6"/></svg></a>
+          <a href="https://scholar.google.com/citations?user=54zobvQAAAAJ&amp;hl=en" title="Google Scholar" aria-label="Google Scholar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M2 9.5 12 4l10 5.5-10 5.5z"/><path d="M6.5 12v4.5c0 1.5 2.5 3 5.5 3s5.5-1.5 5.5-3V12"/></svg></a>
+          <a href="https://orcid.org/0000-0002-9694-2689" title="ORCID" aria-label="ORCID"><svg viewBox="0 0 24 24"><text x="12" y="17" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="currentColor">iD</text></svg></a>
+          <a href="https://www.linkedin.com/in/nan-gao-652738b5/" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><text x="12" y="17.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="currentColor">in</text></svg></a>
+          <a href="https://www.researchgate.net/profile/Nan-Gao-18" title="ResearchGate" aria-label="ResearchGate"><svg viewBox="0 0 24 24"><text x="10" y="17.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="currentColor">R</text><text x="17.6" y="11" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="currentColor">G</text></svg></a>
+        </div>
+    </aside>
+    <div class="about">
+      <h2 class="about-title"><span class="en">Biography</span><span class="zh">个人简介</span></h2>
+      <p class="notice en"><strong>Recruiting (updated 16 October 2026).</strong> Each year I recruit 1–2 Master’s students, 1–2 PhD students and 
+	  several interns. Prospective PhD students should contact me <strong>at least</strong> six months before the application DDL, and prior internship
+	  experience in our lab is strongly recommended so that we can get to know each other (every current PhD student in our lab started
+	  as an intern). To apply, please email me your CV and supporting materials, using the subject “[Internship/Master’s/PhD] Name – University”.</p>
+	 <p class="notice zh"><strong>招生信息（2026 年 10 月 16 日更新）</strong>　本人每年招收硕士生 1–2 名、博士生 1–2 名及实习生若干。
+请有意申请博士的同学至少在申请截止前半年联系，并强烈建议有组内实习经历，以便双方充分了解（目前组内博士生均由实习生转入）。有意者请将简历及相关材料发送至本人邮箱，标题注明"[实习/硕士/博士] 姓名-学校"。</p>
+     
+	 <div class="bio en">
+        <p>I am an Associate Professor at the College of Software, Nankai University. Previously, I was a <a href="https://www.tsinghua.edu.cn/en/info/1245/5132.htm">Shuimu Scholar</a> postdoctoral researcher at the <a href="https://pi.cs.tsinghua.edu.cn/">Pervasive HCI Lab</a> of Tsinghua University, working with <a href="http://pi.cs.tsinghua.edu.cn/lab/people/ChunYu/">A/Prof Chun Yu</a>. I am also a Visiting Fellow at the University of New South Wales (UNSW), Australia.</p>
+        <p>I am interested in ubiquitous computing, mobile sensing, and human-computer interaction (HCI). In particular, my research uses unobtrusive sensing data to infer human behaviours and mental states (e.g., personality, emotion, learning engagement), to help improve self-awareness and promote human well-being.</p>
+        <p>I completed my PhD in Computer Science at RMIT University in 2022, under the supervision of <a href="https://fsalim.github.io/">Prof Flora Salim</a>, <a href="https://swsamleo.github.io/wei_shao.github.io/">Dr Wei Shao</a> and <a href="https://www.rmit.edu.au/contact/staff-contacts/academic-staff/s/saiedur-rahaman-dr-mohammad">Dr Mohammad Saiedur Rahaman</a>. I obtained my Bachelor’s and Master’s degrees from the Beijing Institute of Technology (BIT) in 2016 and 2018. I have published my research in top venues (e.g., PACM IMWUT/UbiComp, Scientific Data), released the public datasets <a href="https://rmit.figshare.com/articles/dataset/In-Gauge_and_En-Gage_Datasets/14578908">In-Gauge and En-Gage</a>, and won the <strong>IMWUT Distinguished Paper Award</strong> at UbiComp 2021.</p>
+      </div>
+      <div class="bio zh">
+        <p>南开大学软件学院副教授。曾任清华大学计算机系 <a href="https://pi.cs.tsinghua.edu.cn/">Pervasive HCI 实验室</a>“<a href="https://www.tsinghua.edu.cn/en/info/1245/5132.htm">水木学者</a>”博士后，合作导师为<a href="http://pi.cs.tsinghua.edu.cn/lab/people/ChunYu/">喻纯副教授</a>；同时为澳大利亚新南威尔士大学（UNSW）访问学者。</p>
+        <p>研究兴趣包括普适计算、移动感知与人机交互（HCI），重点研究如何利用无感（非侵入式）感知数据推断人的行为与心理状态（如人格、情绪、学习投入），帮助人们提升自我觉察、促进身心福祉。</p>
+        <p>2022 年于澳大利亚皇家墨尔本理工大学（RMIT）获计算机科学博士学位，导师为 <a href="https://fsalim.github.io/">Flora Salim 教授</a>、<a href="https://swsamleo.github.io/wei_shao.github.io/">Wei Shao 博士</a>和 <a href="https://www.rmit.edu.au/contact/staff-contacts/academic-staff/s/saiedur-rahaman-dr-mohammad">Mohammad Saiedur Rahaman 博士</a>；2016 年、2018 年分别于北京理工大学获学士、硕士学位。研究成果发表于 PACM IMWUT/UbiComp、Scientific Data 等顶级期刊与会议，公开发布了 <a href="https://rmit.figshare.com/articles/dataset/In-Gauge_and_En-Gage_Datasets/14578908">In-Gauge 与 En-Gage 数据集</a>，并获 UbiComp 2021 <strong>IMWUT 杰出论文奖</strong>。</p>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ==================== 研究方向 Research ==================== -->
+<section class="section" id="research">
+  <div class="wrap">
+    <h2><span class="en">Research Overview</span><span class="zh">研究方向</span><img class="cat" src="assets/cats/research.svg" alt="" width="96" height="103"></h2>
+    <div>
+      <p class="intro"><span class="en">My research sits at the intersection of ubiquitous computing and HCI: sensing human behaviour and mental states in everyday life, and turning that understanding into interactive support for well-being.</span><span class="zh">研究位于普适计算与人机交互的交叉领域：在日常生活中感知人的行为与心理状态，并将这种理解转化为促进身心福祉的交互支持。</span></p>
+      <ul class="research">
+        <li>
+          <img src="assets/research/1.svg" alt="" width="400" height="300" loading="lazy">
+          <h3><span class="en">Sensing and Modelling</span><span class="zh">感知与建模</span></h3>
+          <p><span class="en">Modelling behaviour, emotion and mental states from smartphone, wearable and environmental sensing data collected in the wild.</span><span class="zh">利用真实场景中的手机、可穿戴设备与环境传感数据，对人的行为、情绪与心理状态进行建模。</span></p>
+        </li>
+        <li>
+          <img src="assets/research/3.svg" alt="" width="400" height="300" loading="lazy">
+          <h3><span class="en">Understanding and Design</span><span class="zh">理解与设计</span></h3>
+          <p><span class="en">Empirical studies of how people learn, live and interact at home and in class, informing the design of supportive technologies.</span><span class="zh">通过实证研究理解人在家庭与课堂中的学习、生活与互动，为支持性技术的设计提供依据。</span></p>
+        </li>
+        <li>
+          <img src="assets/research/2.svg" alt="" width="400" height="300" loading="lazy">
+          <h3><span class="en">Interactive Systems and Intervention</span><span class="zh">交互系统与干预</span></h3>
+          <p><span class="en">Building and evaluating interactive systems, including LLM-based agents, that support mental well-being and everyday life.</span><span class="zh">构建并评估交互系统（包括基于大语言模型的智能体），为心理健康与日常生活提供支持。</span></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 动态 News ==================== -->
+<section class="section" id="news">
+  <div class="wrap">
+    <h2><span class="en">News</span><span class="zh">动态</span><img class="cat" src="assets/cats/news.svg" alt="" width="96" height="103"></h2>
+    <div>
+      <ul class="rows">
+        <li><span class="when"><span class="en">Jan 2026</span><span class="zh">2026.01</span></span><span><span class="en">Our paper on parental division of labour was accepted by <a href="https://chi2026.acm.org/">CHI 2026</a>!</span><span class="zh">我们关于家庭教育中父母分工的论文被 <a href="https://chi2026.acm.org/">CHI 2026</a> 录用！</span></span></li>
+        <li><span class="when"><span class="en">Dec 2025</span><span class="zh">2025.12</span></span><span><span class="en">I serve as the <i>Chair for Student Competition and Challenges</i> at <a href="https://www.ubicomp.org/ubicomp-iswc-2026/organizing-committee-2/">UbiComp 2026</a>!</span><span class="zh">担任 <a href="https://www.ubicomp.org/ubicomp-iswc-2026/organizing-committee-2/">UbiComp 2026</a> 学生竞赛与挑战赛（Student Competition and Challenges）主席。</span></span></li>
+        <li><span class="when"><span class="en">Nov 2025</span><span class="zh">2025.11</span></span><span><span class="en">Our <a href="https://arxiv.org/pdf/2512.22462">therapy chatbot paper</a> was accepted by <a href="https://cscw.acm.org/2026/">CSCW 2026</a>!</span><span class="zh">我们关于心理治疗聊天机器人的<a href="https://arxiv.org/pdf/2512.22462">论文</a>被 <a href="https://cscw.acm.org/2026/">CSCW 2026</a> 录用！</span></span></li>
+        <li><span class="when"><span class="en">Oct 2025</span><span class="zh">2025.10</span></span><span><span class="en">Spoke at the <a href="https://www.ubicomp.org/ubicomp-iswc-2025/n2women-event/">N2Women Panel Discussion</a> <em>“Women in Research: Navigating Challenges and Building Futures”</em> at UbiComp 2025.</span><span class="zh">受邀参加 UbiComp 2025 <a href="https://www.ubicomp.org/ubicomp-iswc-2025/n2women-event/">N2Women 圆桌讨论</a>“Women in Research: Navigating Challenges and Building Futures”。</span></span></li>
+        <li><span class="when"><span class="en">Sep 2025</span><span class="zh">2025.09</span></span><span><span class="en">Invited as an AC for <a href="https://chi2026.acm.org/authors/papers/selecting-a-subcommittee/">CHI ’26</a> on the Learning, Education and Families Subcommittee.</span><span class="zh">受邀担任 <a href="https://chi2026.acm.org/authors/papers/selecting-a-subcommittee/">CHI ’26</a> Learning, Education and Families 分委会 AC。</span></span></li>
+        <li><span class="when"><span class="en">Sep 2025</span><span class="zh">2025.09</span></span><span><span class="en">Invited as a TPC member of <a href="https://percom.org/">PerCom 2026</a>.</span><span class="zh">受邀担任 <a href="https://percom.org/">PerCom 2026</a> 程序委员会（TPC）委员。</span></span></li>
+        <li><span class="when"><span class="en">Jul 2025</span><span class="zh">2025.07</span></span><span><span class="en">Our <a href="https://arxiv.org/pdf/2502.01325">family interaction analysis paper</a> was accepted by IMWUT!</span><span class="zh">我们关于亲子家庭互动分析的<a href="https://arxiv.org/pdf/2502.01325">论文</a>被 IMWUT 录用！</span></span></li>
+        <li><span class="when"><span class="en">Jun 2025</span><span class="zh">2025.06</span></span><span><span class="en">Welcome to submit papers to our <a href="https://ubisense2025.github.io/">UbiSense Workshop</a> at UbiComp/ISWC 2025.</span><span class="zh">欢迎向我们在 UbiComp/ISWC 2025 组织的 <a href="https://ubisense2025.github.io/">UbiSense Workshop</a> 投稿。</span></span></li>
+        <li><span class="when"><span class="en">Mar 2025</span><span class="zh">2025.03</span></span><span><span class="en">A major career milestone: I officially started my new role as Associate Professor at the College of Software, Nankai University.</span><span class="zh">职业生涯的重要节点：正式入职南开大学软件学院，任副教授。</span></span></li>
+        <li><span class="when"><span class="en">Feb 2025</span><span class="zh">2025.02</span></span><span><span class="en">I serve as an <b>Associate Editor</b> of the <a href="https://dl.acm.org/journal/imwut">IMWUT</a> journal!</span><span class="zh">担任 <a href="https://dl.acm.org/journal/imwut">IMWUT</a> 期刊 <b>Associate Editor（副编辑）</b>。</span></span></li>
+      </ul>
+
+      <details class="more">
+        <summary><span class="closed"><span class="en">Show earlier news</span><span class="zh">展开更早的动态</span></span><span class="opened"><span class="en">Hide earlier news</span><span class="zh">收起</span></span></summary>
+        <ul class="rows">
+          <li><span class="when"><span class="en">Jan 2025</span><span class="zh">2025.01</span></span><span><span class="en">Interviewed by <a href="https://www.abc.net.au/news/2025-01-07/ai-chatbot-husbando-waifu-relationships-romance-psychology/104701556">ABC News</a> about our recent research on AI companions/lovers.</span><span class="zh">接受澳大利亚 <a href="https://www.abc.net.au/news/2025-01-07/ai-chatbot-husbando-waifu-relationships-romance-psychology/104701556">ABC News</a> 采访，介绍我们关于 AI 伴侣/恋人的研究。</span></span></li>
+          <li><span class="when"><span class="en">Dec 2024</span><span class="zh">2024.12</span></span><span><span class="en">I serve as an <i>Associate Chair</i> at <a href="https://idc.acm.org/2025/">IDC 2025</a>.</span><span class="zh">担任 <a href="https://idc.acm.org/2025/">IDC 2025</a> AC。</span></span></li>
+          <li><span class="when"><span class="en">Oct 2024</span><span class="zh">2024.10</span></span><span><span class="en">Our <a href="https://dl.acm.org/doi/10.1145/3675094.3678423">UbiComp workshop paper</a> received the 🏆 <b><i>Best Paper Award</i></b>.</span><span class="zh">我们的 <a href="https://dl.acm.org/doi/10.1145/3675094.3678423">UbiComp Workshop 论文</a>获 🏆 <b>最佳论文奖</b>。</span></span></li>
+          <li><span class="when"><span class="en">Aug 2024</span><span class="zh">2024.08</span></span><span><span class="en">I joined the <i>Social Media Team</i> of <a href="https://www.computer.org/csdl/magazine/pc">IEEE Pervasive Computing</a>.</span><span class="zh">加入 <a href="https://www.computer.org/csdl/magazine/pc">IEEE Pervasive Computing</a> 社交媒体团队。</span></span></li>
+          <li><span class="when"><span class="en">Jun 2024</span><span class="zh">2024.06</span></span><span><span class="en">I serve as the <i>Chair for Student Competition and Challenges</i> at <a href="https://ubicomp.hosting.acm.org/ubicompiswc2025_wp/">UbiComp 2025</a>!</span><span class="zh">担任 <a href="https://ubicomp.hosting.acm.org/ubicompiswc2025_wp/">UbiComp 2025</a> 学生竞赛与挑战赛主席。</span></span></li>
+          <li><span class="when"><span class="en">May 2024</span><span class="zh">2024.05</span></span><span><span class="en">I serve as an <i>Associate Chair</i> at <a href="https://mobilehci.acm.org/2024/index.php">MobileHCI 2024</a>.</span><span class="zh">担任 <a href="https://mobilehci.acm.org/2024/index.php">MobileHCI 2024</a> AC。</span></span></li>
+          <li><span class="when"><span class="en">Feb 2024</span><span class="zh">2024.02</span></span><span><span class="en">Our dataset of high-altitude respiration and SpO2 data was released online, with the data descriptor published in <a href="https://www.nature.com/articles/s41597-024-03065-x">Scientific Data</a>.</span><span class="zh">高原呼吸与血氧（SpO2）数据集正式公开，数据描述论文发表于 <a href="https://www.nature.com/articles/s41597-024-03065-x">Scientific Data</a>。</span></span></li>
+          <li><span class="when"><span class="en">Aug 2023</span><span class="zh">2023.08</span></span><span><span class="en">I was awarded a grant (￥300k) from the Young Scientists Fund of the National Natural Science Foundation of China (Principal Investigator, Grant No. 62302252).</span><span class="zh">获批国家自然科学基金青年科学基金项目（主持，30 万元，批准号 62302252）。</span></span></li>
+          <li><span class="when"><span class="en">Jun 2023</span><span class="zh">2023.06</span></span><span><span class="en">I received the HDR Computing Technologies Prize, STEM College, RMIT University.</span><span class="zh">获 RMIT 大学 STEM 学院 HDR Computing Technologies Prize。</span></span></li>
+          <li><span class="when"><span class="en">Jun 2023</span><span class="zh">2023.06</span></span><span><span class="en">I was awarded a grant (￥80k) by the China Postdoctoral Science Foundation (Principal Investigator, Grant No. 2023M731949).</span><span class="zh">获中国博士后科学基金面上资助（主持，8 万元，资助编号 2023M731949）。</span></span></li>
+          <li><span class="when"><span class="en">Mar 2023</span><span class="zh">2023.03</span></span><span><span class="en">I serve as a TPC member of <a href="https://buildsys.acm.org/2023/people/">BuildSys 2023</a>.</span><span class="zh">担任 <a href="https://buildsys.acm.org/2023/people/">BuildSys 2023</a> 程序委员会委员。</span></span></li>
+          <li><span class="when"><span class="en">Mar 2023</span><span class="zh">2023.03</span></span><span><span class="en">I serve as a Guest Editor of <a href="https://www.frontiersin.org/journals/sustainable-cities">Frontiers in Sustainable Cities</a> for the special issue <a href="https://www.frontiersin.org/research-topics/53701/trends-and-challenges-of-ubiquitous-computing-in-smart-cities">Trends and Challenges of Ubiquitous Computing in Smart Cities</a>.</span><span class="zh">担任 <a href="https://www.frontiersin.org/journals/sustainable-cities">Frontiers in Sustainable Cities</a> 专刊 <a href="https://www.frontiersin.org/research-topics/53701/trends-and-challenges-of-ubiquitous-computing-in-smart-cities">Trends and Challenges of Ubiquitous Computing in Smart Cities</a> 客座编辑。</span></span></li>
+          <li><span class="when"><span class="en">Feb 2023</span><span class="zh">2023.02</span></span><span><span class="en">I serve as the Publicity Chair of <a href="https://crowdos.cn/AIoTSys/#/">AIoTSys 2023</a> (Oct 19–23, 2023).</span><span class="zh">担任 <a href="https://crowdos.cn/AIoTSys/#/">AIoTSys 2023</a>（2023 年 10 月 19–23 日）宣传主席。</span></span></li>
+          <li><span class="when"><span class="en">Dec 2022</span><span class="zh">2022.12</span></span><span><span class="en">I was selected into the <a href="https://www.tsinghua.edu.cn/en/info/1245/5132.htm">Shuimu Tsinghua Scholar Program</a> (<a href="https://postdoctor.tsinghua.edu.cn/thu/index.htm">水木学者</a>).</span><span class="zh">入选清华大学“<a href="https://postdoctor.tsinghua.edu.cn/thu/index.htm">水木学者</a>”计划。</span></span></li>
+          <li><span class="when"><span class="en">Oct 2022</span><span class="zh">2022.10</span></span><span><span class="en">I serve as a Program Committee member of the <a href="https://www.comtec.eecs.uni-kassel.de/emotionaware/">IEEE PerCom EmotionAware Workshop</a> (March 13–17, 2023).</span><span class="zh">担任 <a href="https://www.comtec.eecs.uni-kassel.de/emotionaware/">IEEE PerCom EmotionAware Workshop</a>（2023 年 3 月 13–17 日）程序委员会委员。</span></span></li>
+          <li><span class="when"><span class="en">Sep 2022</span><span class="zh">2022.09</span></span><span><span class="en">I received the <a href="https://www.daad.de/en/the-daad/postdocnet/details-and-application/">DAAD AInet Fellowship</a>.</span><span class="zh">获 <a href="https://www.daad.de/en/the-daad/postdocnet/details-and-application/">DAAD AInet Fellowship</a>。</span></span></li>
+          <li><span class="when"><span class="en">Aug 2022</span><span class="zh">2022.08</span></span><span><span class="en"><a href="https://dl.acm.org/doi/abs/10.1145/3550335">Our paper</a> was accepted by IMWUT and will be presented at UbiComp 2022.</span><span class="zh"><a href="https://dl.acm.org/doi/abs/10.1145/3550335">论文</a>被 IMWUT 录用，并将在 UbiComp 2022 报告。</span></span></li>
+          <li><span class="when"><span class="en">Aug 2022</span><span class="zh">2022.08</span></span><span><span class="en"><strong>A big day!</strong> I officially received my PhD, and my thesis is publicly available (<a href="https://researchrepository.rmit.edu.au/esploro/outputs/doctoral/Human-behaviour-sensing-and-profiling-in/9922139371301341?institution=61RMIT_INST">download</a>).</span><span class="zh"><strong>重要的一天！</strong>正式获得博士学位，博士论文已公开（<a href="https://researchrepository.rmit.edu.au/esploro/outputs/doctoral/Human-behaviour-sensing-and-profiling-in/9922139371301341?institution=61RMIT_INST">下载</a>）。</span></span></li>
+          <li><span class="when"><span class="en">Aug 2022</span><span class="zh">2022.08</span></span><span><span class="en">I gave an invited talk at the Access Computing Summer Program (ACSP).</span><span class="zh">在 Access Computing Summer Program（ACSP）作特邀报告。</span></span></li>
+          <li><span class="when"><span class="en">Jun 2022</span><span class="zh">2022.06</span></span><span><span class="en">I gave an invited talk at AIR, Tsinghua University.</span><span class="zh">在清华大学智能产业研究院（AIR）作特邀报告。</span></span></li>
+          <li><span class="when"><span class="en">May 2022</span><span class="zh">2022.05</span></span><span><span class="en">I was invited to give a guest lecture at RMIT University.</span><span class="zh">受邀在 RMIT 大学作客座讲座。</span></span></li>
+          <li><span class="when"><span class="en">Apr 2022</span><span class="zh">2022.04</span></span><span><span class="en">Our data descriptor was accepted by <a href="https://www.nature.com/sdata/">Nature Scientific Data</a>!</span><span class="zh">数据描述论文被 <a href="https://www.nature.com/sdata/">Nature Scientific Data</a> 录用！</span></span></li>
+          <li><span class="when"><span class="en">Jan 2022</span><span class="zh">2022.01</span></span><span><span class="en">I was elected an Executive Member of the <a href="https://www.ccf.org.cn/Chapters/TC/TC_Listing/TCHCI/">CCF Technical Committee of Human-Computer Interaction</a> (CCF TCHCI).</span><span class="zh">当选<a href="https://www.ccf.org.cn/Chapters/TC/TC_Listing/TCHCI/">中国计算机学会人机交互专业委员会</a>（CCF TCHCI）执行委员。</span></span></li>
+          <li><span class="when"><span class="en">Nov 2021</span><span class="zh">2021.11</span></span><span><span class="en">Our released <a href="https://rmit.figshare.com/articles/dataset/In-Gauge_and_En-Gage_Datasets/14578908">dataset</a> was included in the <a href="https://ashraeobdatabase.com/#/">ASHRAE Global Occupant Behavior Database</a>, together with open datasets from 14 countries and 32 institutions.</span><span class="zh">我们发布的<a href="https://rmit.figshare.com/articles/dataset/In-Gauge_and_En-Gage_Datasets/14578908">数据集</a>被收录进 <a href="https://ashraeobdatabase.com/#/">ASHRAE Global Occupant Behavior Database</a>，该数据库汇集了来自 14 个国家、32 家机构的开放数据集。</span></span></li>
+          <li><span class="when"><span class="en">Sep 2021</span><span class="zh">2021.09</span></span><span><span class="en">I received the IMWUT <strong>Distinguished Paper Award</strong> at UbiComp 2021, given to six papers representing outstanding, exemplary contributions, selected from 169 papers in Vol. 4 (3.55%).</span><span class="zh">获 UbiComp 2021 IMWUT <strong>杰出论文奖</strong>，该奖项从第 4 卷 169 篇论文中评选出 6 篇（3.55%）。</span></span></li>
+          <li><span class="when"><span class="en">Aug 2021</span><span class="zh">2021.08</span></span><span><span class="en">I was <strong>the winner</strong> of the <a href="https://www.rmit.edu.au/students/student-essentials/information-for/research-candidates/enriching-your-candidature/phd-up-program/three-minute-thesis">Three Minute Thesis (3MT)</a> competition at the School of Computing Technologies, and went on to win the <strong>People’s Choice Award</strong> in the RMIT 3MT event.</span><span class="zh">获 RMIT 计算技术学院<a href="https://www.rmit.edu.au/students/student-essentials/information-for/research-candidates/enriching-your-candidature/phd-up-program/three-minute-thesis">三分钟论文（3MT）</a>比赛<strong>冠军</strong>，并在 RMIT 校级 3MT 比赛中获<strong>人气奖</strong>（People’s Choice Award）。</span></span></li>
+          <li><span class="when"><span class="en">Aug 2021</span><span class="zh">2021.08</span></span><span><span class="en">I received the <strong>SCT HDR Research Achievement Award</strong> at the School of Computing Technologies, RMIT.</span><span class="zh">获 RMIT 计算技术学院 <strong>SCT HDR Research Achievement Award</strong>。</span></span></li>
+          <li><span class="when"><span class="en">Jul 2021</span><span class="zh">2021.07</span></span><span><span class="en">My <a href="https://arxiv.org/pdf/2107.00389.pdf">position paper</a> was accepted by <a href="https://emosense2021.wordpress.com/">EmoSense 2021</a> (workshop at UbiComp/ISWC).</span><span class="zh"><a href="https://arxiv.org/pdf/2107.00389.pdf">立场论文</a>（position paper）被 <a href="https://emosense2021.wordpress.com/">EmoSense 2021</a>（UbiComp/ISWC Workshop）录用。</span></span></li>
+          <li><span class="when"><span class="en">Jun 2021</span><span class="zh">2021.06</span></span><span><span class="en">My <a href="https://arxiv.org/pdf/2008.08903.pdf">GAN survey paper</a> was accepted by <a href="https://dl.acm.org/journal/tist">TIST</a>.</span><span class="zh">关于生成对抗网络（GAN）的<a href="https://arxiv.org/pdf/2008.08903.pdf">综述论文</a>被 <a href="https://dl.acm.org/journal/tist">TIST</a> 录用。</span></span></li>
+          <li><span class="when"><span class="en">May 2021</span><span class="zh">2021.05</span></span><span><span class="en">I published the In-Gauge and En-Gage datasets on <a href="https://rmit.figshare.com/articles/dataset/In-Gauge_and_En-Gage_Datasets/14578908">Figshare</a> and <a href="https://github.com/cruiseresearchgroup/InGauge-and-EnGage-Datasets">GitHub</a>!</span><span class="zh">在 <a href="https://rmit.figshare.com/articles/dataset/In-Gauge_and_En-Gage_Datasets/14578908">Figshare</a> 与 <a href="https://github.com/cruiseresearchgroup/InGauge-and-EnGage-Datasets">GitHub</a> 发布 In-Gauge 与 En-Gage 数据集！</span></span></li>
+          <li><span class="when"><span class="en">Feb 2021</span><span class="zh">2021.02</span></span><span><span class="en">My <a href="wp-content/uploads/2023/08/Transfer-Learning-for-Thermal-Comfort-Prediction-in-Multiple-Cities.pdf">paper</a> was accepted by Building and Environment!</span><span class="zh"><a href="wp-content/uploads/2023/08/Transfer-Learning-for-Thermal-Comfort-Prediction-in-Multiple-Cities.pdf">论文</a>被 Building and Environment 录用！</span></span></li>
+          <li><span class="when"><span class="en">Nov 2020</span><span class="zh">2020.11</span></span><span><span class="en">I received the <strong>People’s Choice Award</strong> at CIDDA Research Day (CRdD’20).</span><span class="zh">在 CIDDA Research Day（CRdD’20）获<strong>人气奖</strong>。</span></span></li>
+          <li><span class="when"><span class="en">Sep 2020</span><span class="zh">2020.09</span></span><span><span class="en">My <a href="https://www.youtube.com/watch?v=hHYKCUZdsMo&amp;t=131s">video</a> won the <strong>best presentation</strong> in Session 1C and was selected as <a href="https://www.youtube.com/watch?v=PLOvuuKCIxM">a finalist for the best talk award</a> at UbiComp 2020.</span><span class="zh">报告<a href="https://www.youtube.com/watch?v=hHYKCUZdsMo&amp;t=131s">视频</a>获 UbiComp 2020 Session 1C <strong>最佳报告</strong>，并<a href="https://www.youtube.com/watch?v=PLOvuuKCIxM">入围最佳报告奖决选</a>。</span></span></li>
+          <li><span class="when"><span class="en">Apr 2020</span><span class="zh">2020.04</span></span><span><span class="en">I gave a talk at the <a href="https://iea-annex.org/">IEA Annex 79 Expert Meeting</a>.</span><span class="zh">在 <a href="https://iea-annex.org/">IEA Annex 79 专家会议</a>上作报告。</span></span></li>
+          <li><span class="when"><span class="en">Apr 2020</span><span class="zh">2020.04</span></span><span><span class="en">I gave a <a href="http://www.energy.soton.ac.uk/serg-hosts-iea-symposium-online-over-190-attend/">talk</a> at the <a href="https://iea-annex.org/#symposium-home">5th International Symposium on Occupant Behaviour</a>.</span><span class="zh">在<a href="https://iea-annex.org/#symposium-home">第五届国际建筑用户行为研讨会</a>（5th International Symposium on Occupant Behaviour）上作<a href="http://www.energy.soton.ac.uk/serg-hosts-iea-symposium-online-over-190-attend/">报告</a>。</span></span></li>
+          <li><span class="when"><span class="en">Aug 2019</span><span class="zh">2019.08</span></span><span><span class="en">As of August 2019, my research had been covered in more than 145 news pieces, including <strong><a href="https://thenewdaily.com.au/life/tech/2019/07/28/phone-use-predicts-personality/">The New Daily</a></strong>, <strong><a href="https://www.newsweek.com/scientists-personality-predict-smartphone-1451158">Newsweek</a></strong>, <strong><a href="https://www.zdnet.com/article/rmit-develops-method-to-predict-peoples-personalities-using-phone-accelorometers/">ZDNet</a></strong>, <strong>Herald Sun</strong>, <strong><a href="https://neurosciencenews.com/phone-movement-personality-type-14567/">Neuroscience News</a></strong>, the <strong><a href="https://www.arc.gov.au/news-publications/media/research-highlights/scientists-use-phone-movement-predict-personality-types">Australian Research Council</a></strong> and <strong><a href="https://www.abc.net.au/chinese/2019-06-18/personality-traits-prediction/11217794">ABC Radio</a></strong>.</span><span class="zh">截至 2019 年 8 月，研究已获 145 余篇媒体报道，包括 <strong><a href="https://thenewdaily.com.au/life/tech/2019/07/28/phone-use-predicts-personality/">The New Daily</a></strong>、<strong><a href="https://www.newsweek.com/scientists-personality-predict-smartphone-1451158">Newsweek</a></strong>、<strong><a href="https://www.zdnet.com/article/rmit-develops-method-to-predict-peoples-personalities-using-phone-accelorometers/">ZDNet</a></strong>、<strong>Herald Sun</strong>、<strong><a href="https://neurosciencenews.com/phone-movement-personality-type-14567/">Neuroscience News</a></strong>、<strong><a href="https://www.arc.gov.au/news-publications/media/research-highlights/scientists-use-phone-movement-predict-personality-types">澳大利亚研究理事会（ARC）</a></strong>和 <strong><a href="https://www.abc.net.au/chinese/2019-06-18/personality-traits-prediction/11217794">ABC 电台</a></strong>等。</span></span></li>
+          <li><span class="when"><span class="en">Aug 2019</span><span class="zh">2019.08</span></span><span><span class="en">My research was selected as one of RMIT’s <a href="https://www.rmit.edu.au/news/all-news/2019/aug/top-science-stories">Five top stories: putting the spotlight on Science</a>.</span><span class="zh">研究入选 RMIT <a href="https://www.rmit.edu.au/news/all-news/2019/aug/top-science-stories">Five top stories: putting the spotlight on Science</a>。</span></span></li>
+          <li><span class="when"><span class="en">Jul 2019</span><span class="zh">2019.07</span></span><span><span class="en">I was interviewed by <strong>RMIT University</strong>: “Scientists use phone movement to predict personality types” (<a href="https://www.rmit.edu.au/news/all-news/2019/jul/phone-movement-personaility">media report</a>).</span><span class="zh">接受 <strong>RMIT 大学</strong>采访：“Scientists use phone movement to predict personality types”（<a href="https://www.rmit.edu.au/news/all-news/2019/jul/phone-movement-personaility">报道</a>）。</span></span></li>
+          <li><span class="when"><span class="en">Jun 2019</span><span class="zh">2019.06</span></span><span><span class="en">I was interviewed by <strong>Australian Broadcasting Corporation (ABC) News</strong> (<a href="https://www.abc.net.au/chinese/2019-06-18/personality-traits-prediction/11217794">media report</a>).</span><span class="zh">接受<strong>澳大利亚广播公司（ABC）新闻</strong>采访（<a href="https://www.abc.net.au/chinese/2019-06-18/personality-traits-prediction/11217794">报道</a>）。</span></span></li>
+          <li><span class="when"><span class="en">May 2019</span><span class="zh">2019.05</span></span><span><span class="en">Our team won the Linfox Fuel Hackathon (<a href="https://ybfventures.com/winners-announced-for-ybf-ventures-x-linfox-fuelhack-hackathon/">media report</a>).</span><span class="zh">团队获 Linfox Fuel Hackathon 冠军（<a href="https://ybfventures.com/winners-announced-for-ybf-ventures-x-linfox-fuelhack-hackathon/">报道</a>）。</span></span></li>
+        </ul>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 论文 Publications ==================== -->
+<section class="section" id="publications">
+  <div class="wrap">
+    <h2><span class="en">Selected Publications</span><span class="zh">代表性成果</span><span class="sub"><span class="en">* corresponding author</span><span class="zh">* 为通讯作者</span></span><img class="cat" src="assets/cats/publications.svg" alt="" width="96" height="103"></h2>
+    <div>
+      <p class="intro"><span class="en">For the full and latest list, please see my <a href="https://scholar.google.com/citations?user=54zobvQAAAAJ&amp;hl=en">Google Scholar</a> and <a href="https://www.researchgate.net/profile/Nan-Gao-18">ResearchGate</a>.</span><span class="zh">完整及最新论文列表见 <a href="https://scholar.google.com/citations?user=54zobvQAAAAJ&amp;hl=en">Google Scholar</a> 与 <a href="https://www.researchgate.net/profile/Nan-Gao-18">ResearchGate</a>。</span></p>
+
+      <div class="year">2026</div>
+      <ul class="pubs">
+        <li>
+          <div class="pub-title">Division of Labor and Collaboration Between Parents in Family Education: The Case of Homework Involvement in Chinese Families</div>
+          <div class="pub-authors">Wang, Z., Zhang, C., Deng, J., Hu, X., Jie, C.*, <b>Gao, N.*</b>, Yu, C., Zhang, H.*</div>
+          <div class="pub-venue"><i>CHI 2026</i> <span class="tag">Rank A*</span><span class="tag">CCF A</span><span class="pub-links"><a href="https://arxiv.org/pdf/2602.10501v1">PDF</a></span></div>
+        </li>
+        <li>
+          <div class="pub-title">Relational Mediators: LLM Chatbots as Boundary Objects in Psychotherapy</div>
+          <div class="pub-authors">Quan, J., Li, Z., Zhu, T. Q., Li, Y., Wang, B., Pratt, W., &amp; <b>Gao, N.*</b></div>
+          <div class="pub-venue"><i>CSCW 2026</i> <span class="tag">Rank A*</span><span class="tag">CCF A</span><span class="pub-links"><a href="https://arxiv.org/pdf/2512.22462">PDF</a></span></div>
+        </li>
+      </ul>
+
+      <div class="year">2025</div>
+      <ul class="pubs">
+        <li>
+          <div class="pub-title">The Homework Wars: Exploring Emotions, Behaviours, and Conflicts in Parent-Child Homework Interactions</div>
+          <div class="pub-authors"><b>Gao, N.</b>, Liu, Y., Tang, X., Liu, Y., Yu, C., Huang, Y., … &amp; Shi, Y.</div>
+          <div class="pub-venue"><i>Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies (IMWUT)</i>, 9(3), 1–37. <span class="tag">Rank A*</span><span class="tag">CCF A</span><span class="pub-links"><a href="https://arxiv.org/pdf/2502.01325">PDF</a></span></div>
+        </li>
+      </ul>
+
+      <div class="year">2024</div>
+      <ul class="pubs">
+        <li>
+          <div class="pub-title">Leveraging Large Language Models for Generating Mobile Sensing Strategies in Human Behavior Modeling</div>
+          <div class="pub-authors"><b>Gao, N.</b>, Yu, Z., Xu, Y., Yu, C., Wang, Y., Salim, F., Shi, Y.</div>
+          <div class="pub-venue"><i>UbiComp Workshop ’24</i> <span class="tag award">🏆 <span class="en">Best Paper Award</span><span class="zh">最佳论文奖</span></span><span class="pub-links"><a href="wp-content/uploads/2024/09/Automated_mobile_sensing_framework_ultizing_LLMs.pdf">PDF</a></span></div>
+        </li>
+        <li>
+          <div class="pub-title">AngleSizer: Enhancing Spatial Scale Perception for the Visually Impaired with an Interactive Smartphone Assistant</div>
+          <div class="pub-authors">Jing, X., Yu, C., Yue, K., Lu, L., <b>Gao, N.</b>, Shi, W., Zhang, M., Wang, R., Shi, Y.</div>
+          <div class="pub-venue"><i>Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies (IMWUT)</i>, 8(3), 1–31. <span class="tag">Rank A*</span><span class="tag">CCF A</span><span class="pub-links"><a href="https://dl.acm.org/doi/pdf/10.1145/3678525">PDF</a></span></div>
+        </li>
+        <li>
+          <div class="pub-title">Understanding Physiological Responses of Students Over Different Courses</div>
+          <div class="pub-authors">Ananthan, S., <b>Gao, N.</b>, Salim, F.</div>
+          <div class="pub-venue"><i>Proceedings of the 2024 ACM International Symposium on Wearable Computers (ISWC ’24)</i>, 104–110. <span class="pub-links"><a href="wp-content/uploads/2024/09/2024_ISWC_Understanding-Physiological-Responses-of-Students.pdf">PDF</a></span></div>
+        </li>
+        <li>
+          <div class="pub-title">A High Altitude Respiration and SpO2 Dataset for Assessing the Human Response to Hypoxia</div>
+          <div class="pub-authors">Zhang, X., Zhang, Y., Si, Y., <b>Gao, N.</b>, Zhang, H., Yang, H.</div>
+          <div class="pub-venue"><i>Scientific Data (Nature Portfolio)</i>, 11, 248. <span class="tag">SJR Q1</span><span class="tag">IF 10.8</span><span class="pub-links"><a href="wp-content/uploads/2024/02/s41597-024-03065-x.pdf">PDF</a></span></div>
+        </li>
+        <li>
+          <div class="pub-title">面向人工智能生成内容时代的图书馆服务适应与创新</div>
+          <div class="pub-authors">汪聪, 张春红, <b>高楠</b>, 金鑫, 李国俊</div>
+          <div class="pub-venue"><i>情报理论与实践</i>, 1–10. <span class="pub-links"><a href="http://kns.cnki.net/kcms/detail/11.1762.G3.20240220.1245.002.html">CNKI</a></span></div>
+        </li>
+      </ul>
+
+      <div class="year">2023</div>
+      <ul class="pubs">
+        <li>
+          <div class="pub-title"><span class="en">Human-Computer Interaction for Virtual-Real Fusion</span><span class="zh">面向虚实融合的人机交互</span></div>
+          <div class="pub-authors"><span class="en">Tao, J., Gong, J., <b>Gao, N.</b>, Fu, S., Liang, S., Yu, C.</span><span class="zh">陶建华, 龚江涛, <b>高楠</b>, 傅四维, 梁山, 喻纯</span></div>
+          <div class="pub-venue"><i><span class="en">Journal of Image and Graphics</span><span class="zh">中国图象图形学报</span></i>, 28(06). <span class="pub-links"><a href="wp-content/uploads/2023/08/CSIG_survey.pdf">PDF</a></span></div>
+        </li>
+      </ul>
+
+      <div class="year">2022</div>
+      <ul class="pubs">
+        <li>
+          <div class="pub-title">Human Behaviour Sensing and Profiling in the Wild</div>
+          <div class="pub-authors"><b>Gao, N.</b></div>
+          <div class="pub-venue"><span class="en">PhD dissertation</span><span class="zh">博士学位论文</span>, <i>RMIT University</i>. <span class="pub-links"><a href="wp-content/uploads/2023/10/Gao.pdf">PDF</a></span></div>
+        </li>
+        <li>
+          <div class="pub-title">Individual and Group-wise Classroom Seating Experience: Effects on Student Engagement in Different Courses</div>
+          <div class="pub-authors"><b>Gao, N.</b>, Rahaman, M. S., Shao, W., Ji, K., &amp; Salim, F. D.</div>
+          <div class="pub-venue"><i>Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies (IMWUT)</i>, 6(3), 1–23. <span class="tag">Rank A*</span><span class="tag">CCF A</span><span class="pub-links"><a href="wp-content/uploads/2023/08/Seating.pdf">PDF</a></span></div>
+        </li>
+        <li>
+          <div class="pub-title">A Global Building Occupant Behavior Database</div>
+          <div class="pub-authors">Dong, B., Liu, Y., Mu, W., <i>et al.</i></div>
+          <div class="pub-venue"><i>Scientific Data (Nature Portfolio)</i>, 9, 369. <span class="tag">SJR Q1</span><span class="tag">IF 10.8</span><span class="pub-links"><a href="https://doi.org/10.1038/s41597-022-01475-3">DOI</a><a href="wp-content/uploads/2023/08/A-Global-Building-Occupant-Behaviour-Database.pdf">PDF</a></span></div>
+        </li>
+        <li>
+          <div class="pub-title">Understanding Occupants’ Behaviour, Engagement, Emotion, and Comfort Indoors with Heterogeneous Sensors and Wearables</div>
+          <div class="pub-authors"><b>Gao, N.</b>, Marschall, M., Burry, J., Watkins, S., &amp; Salim, F. D.</div>
+          <div class="pub-venue"><i>Scientific Data (Nature Portfolio)</i>, 9, 261. <span class="tag">SJR Q1</span><span class="tag">IF 10.8</span><span class="pub-links"><a href="wp-content/uploads/2023/08/Understanding-occupants-behaviour-engagement-emotion-and-comfort-indoors-with-heterogeneous-sensors-and-wearables.pdf">PDF</a></span></div>
+        </li>
+        <li>
+          <div class="pub-title">Generative Adversarial Networks for Spatio-temporal Data: A Survey</div>
+          <div class="pub-authors"><b>Gao, N.</b>, Xue, H., Shao, W., Zhao, S., Qin, K. K., Prabowo, A., … Salim, F. D.</div>
+          <div class="pub-venue"><i>ACM Transactions on Intelligent Systems and Technology</i>, 13(2), Article 22. <span class="tag">SJR Q1</span><span class="tag">IF 10.489</span><span class="pub-links"><a href="wp-content/uploads/2023/08/Generative-Adversarial-Networks-for-Spatio-temporal-Data-A-Survey.pdf">PDF</a></span></div>
+        </li>
+      </ul>
+
+      <div class="year">2021</div>
+      <ul class="pubs">
+        <li>
+          <div class="pub-title">Investigating the Reliability of Self-report Data in the Wild: The Quest for Ground Truth</div>
+          <div class="pub-authors"><b>Gao, N.</b>, Rahaman, M. S., Shao, W., &amp; Salim, F. D.</div>
+          <div class="pub-venue"><i>Adjunct Proceedings of UbiComp/ISWC ’21</i>, 237–242. <span class="tag">Workshop</span><span class="pub-links"><a href="wp-content/uploads/2023/08/Investigating_the_reliability_of_self_report_responeses_with_sensing_data_in_the_wild.pdf">PDF</a></span></div>
+        </li>
+        <li>
+          <div class="pub-title">Transfer Learning for Thermal Comfort Prediction in Multiple Cities</div>
+          <div class="pub-authors"><b>Gao, N.</b>, Shao, W., Rahaman, M. S., Zhai, J., David, K., &amp; Salim, F. D.</div>
+          <div class="pub-venue"><i>Building and Environment</i>, 195, 107725. <span class="tag">SJR Q1</span><span class="tag">IF 7.093</span><span class="pub-links"><a href="wp-content/uploads/2023/08/Transfer-Learning-for-Thermal-Comfort-Prediction-in-Multiple-Cities.pdf">PDF</a></span></div>
+        </li>
+      </ul>
+
+      <div class="year">2020</div>
+      <ul class="pubs">
+        <li>
+          <div class="pub-title">n-Gage: Predicting in-class Emotional, Behavioural and Cognitive Engagement in the Wild</div>
+          <div class="pub-authors"><b>Gao, N.</b>, Shao, W., Rahaman, M. S., &amp; Salim, F. D.</div>
+          <div class="pub-venue"><i>Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies (IMWUT)</i>, 4(3), 1–26. <span class="tag">Rank A*</span><span class="tag">CCF A</span><span class="tag award">🏆 <span class="en">Distinguished Paper Award</span><span class="zh">杰出论文奖</span></span><span class="pub-links"><a href="https://www.youtube.com/watch?v=hHYKCUZdsMo&amp;t=131s"><span class="en">Presentation</span><span class="zh">报告视频</span></a><a href="https://www.youtube.com/watch?v=2lCkMz4MZGk"><span class="en">Teaser</span><span class="zh">预告片</span></a><a href="wp-content/uploads/2023/08/n_Gage_Sensing_in_class_Multidimensional_Learning_Engagement_in_the_Wild.pdf">PDF</a></span></div>
+        </li>
+        <li>
+          <div class="pub-title">Current Practices and Infrastructure for Open Data based Research on Occupant-centric Design and Operation of Buildings</div>
+          <div class="pub-authors">Kjærgaard, M. B., Ardakanian, O., Carlucci, S., Dong, B., Firth, S. K., <b>Gao, N.</b>, … Salim, F. D.</div>
+          <div class="pub-venue"><i>Building and Environment</i>, 177, 106848. <span class="tag">SJR Q1</span><span class="tag">IF 7.093</span><span class="pub-links"><a href="wp-content/uploads/2023/08/Current-practices-and-infrastructure-for-open-data.pdf">PDF</a></span></div>
+        </li>
+      </ul>
+
+      <div class="year">2019</div>
+      <ul class="pubs">
+        <li>
+          <div class="pub-title">Cutting the Unnecessary Long Tail: Cost-Effective Big Data Clustering in the Cloud</div>
+          <div class="pub-authors">Li, D., Wang, S., <b>Gao, N.</b>, He, Q., &amp; Yang, Y.</div>
+          <div class="pub-venue"><i>IEEE Transactions on Cloud Computing</i>. <span class="tag">SJR Q1</span><span class="tag">IF 5.679</span><span class="pub-links"><a href="wp-content/uploads/2023/08/Long-tail.pdf">PDF</a></span></div>
+        </li>
+        <li>
+          <div class="pub-title">Predicting Personality Traits From Physical Activity Intensity</div>
+          <div class="pub-authors"><b>Gao, N.</b>, Shao, W., &amp; Salim, F. D.</div>
+          <div class="pub-venue"><i>Computer</i>, 52(7), 47–56. <span class="tag">SJR Q1</span><span class="tag">IF 4.419</span><span class="pub-links"><a href="wp-content/uploads/2023/08/Predicting-Personality-Traits-From-Physical-Activity-Intensity.pdf">PDF</a></span></div>
+        </li>
+        <li>
+          <div class="pub-title">Service Selection With QoS Correlations in Distributed Service-Based Systems</div>
+          <div class="pub-authors">Li, D., Ye, D., <b>Gao, N.</b>, &amp; Wang, S.</div>
+          <div class="pub-venue"><i>IEEE Access</i>, 7, 88718–88732. <span class="tag">SJR Q1</span><span class="tag">IF 3.476</span><span class="pub-links"><a href="wp-content/uploads/2023/08/Service_Selection_With_QoS_Correlations_in_Distributed_Service-Based_Systems.pdf">PDF</a></span></div>
+        </li>
+      </ul>
+
+      <h3><span class="en">Released Datasets</span><span class="zh">公开数据集</span></h3>
+      <ul class="pubs">
+        <li>
+          <div class="pub-title">In-Gauge and En-Gage Datasets</div>
+          <div class="pub-authors"><b>Gao, N.</b>, Marschall, M., Burry, J., Watkins, S., Salim, F. (2021)</div>
+          <div class="pub-venue"><i>RMIT University</i>. <span class="pub-links"><a href="https://doi.org/10.25439/rmt.14578908.v2">Figshare</a><a href="https://github.com/cruiseresearchgroup/InGauge-and-EnGage-Datasets">GitHub</a><a href="https://www.nature.com/articles/s41597-022-01347-w.pdf"><span class="en">Dataset Descriptor</span><span class="zh">数据描述论文</span></a></span></div>
+        </li>
+      </ul>
+      <figure>
+        <img src="wp-content/uploads/2022/09/Picture1.png" alt="Overview of the In-Gauge and En-Gage datasets" width="761" height="201" loading="lazy">
+        <figcaption><span class="en">The largest and most heterogeneous environmental and affect sensing dataset.</span><span class="zh">规模最大、数据类型最丰富的环境与情感感知数据集。</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 荣誉 Awards ==================== -->
+<section class="section" id="awards">
+  <div class="wrap">
+    <h2><span class="en">Selected Awards</span><span class="zh">荣誉奖励</span><img class="cat" src="assets/cats/awards.svg" alt="" width="96" height="103"></h2>
+    <ul class="rows narrow">
+      <li><span class="when">2024</span><span><span class="en">Best Paper Award, UbiComp Mental Health Workshop</span><span class="zh">UbiComp Mental Health Workshop 最佳论文奖</span></span></li>
+      <li><span class="when">2023</span><span><span class="en">HDR Computing Technologies Prize, STEM College, RMIT</span><span class="zh">RMIT 大学 STEM 学院 HDR Computing Technologies Prize</span></span></li>
+      <li><span class="when">2022</span><span><span class="en">Tsinghua Shuimu Scholar (Postdoctoral Fellowship)</span><span class="zh">清华大学“水木学者”博士后</span></span></li>
+      <li><span class="when">2022</span><span>DAAD AInet Fellowship</span></li>
+      <li><span class="when">2022</span><span><span class="en">Chinese Government Award for Outstanding Self-financed Students Abroad</span><span class="zh">国家优秀自费留学生奖学金</span></span></li>
+      <li><span class="when">2021</span><span><span class="en">IMWUT Distinguished Paper Award, UbiComp</span><span class="zh">UbiComp IMWUT 杰出论文奖</span></span></li>
+      <li><span class="when">2021</span><span><span class="en">People’s Choice Award, Three Minute Thesis competition, RMIT</span><span class="zh">RMIT 大学三分钟论文（3MT）比赛人气奖</span></span></li>
+      <li><span class="when">2021</span><span><span class="en">Winner, Three Minute Thesis competition, School of Computing Technologies, RMIT</span><span class="zh">RMIT 计算技术学院三分钟论文（3MT）比赛冠军</span></span></li>
+      <li><span class="when">2020</span><span><span class="en">SCT HDR Research Achievement Award, School of Computing Technologies, RMIT</span><span class="zh">RMIT 计算技术学院 SCT HDR Research Achievement Award</span></span></li>
+      <li><span class="when">2020</span><span><span class="en">People’s Choice Award, CIDDA Research Day (CRdD’20), RMIT</span><span class="zh">RMIT CIDDA Research Day（CRdD’20）人气奖</span></span></li>
+      <li><span class="when">2020</span><span><span class="en">Best Presentation in Session 1C and <a href="https://www.youtube.com/watch?v=PLOvuuKCIxM">finalist for the best talk award</a>, UbiComp 2020</span><span class="zh">UbiComp 2020 Session 1C 最佳报告，<a href="https://www.youtube.com/watch?v=PLOvuuKCIxM">最佳报告奖决选入围</a></span></span></li>
+      <li><span class="when">2019</span><span><span class="en">Winner, Linfox Fuel Hackathon (<a href="https://ybfventures.com/winners-announced-for-ybf-ventures-x-linfox-fuelhack-hackathon/">media report</a>), AUD 5,000 prize</span><span class="zh">Linfox Fuel Hackathon 冠军（<a href="https://ybfventures.com/winners-announced-for-ybf-ventures-x-linfox-fuelhack-hackathon/">报道</a>），奖金 5000 澳元</span></span></li>
+      <li><span class="when">2018</span><span><span class="en">Stipend and Tuition Fee Scholarship, RMIT</span><span class="zh">RMIT 大学全额奖学金（生活津贴与学费）</span></span></li>
+      <li><span class="when">2015</span><span><span class="en">Future Stars of Software Scholarship, BIT</span><span class="zh">北京理工大学“软件未来之星”奖学金</span></span></li>
+      <li><span class="when">2014</span><span><span class="en">Edifier Scholarship, BIT</span><span class="zh">北京理工大学漫步者奖学金</span></span></li>
+      <li><span class="when">2014</span><span><span class="en">Gold Medal, International Genetically Engineered Machine Competition (iGEM), Boston, USA</span><span class="zh">国际遗传工程机器设计竞赛（iGEM）金奖，美国波士顿</span></span></li>
+      <li><span class="when">2013</span><span><span class="en">Outstanding Student Cadre Award, BIT</span><span class="zh">北京理工大学优秀学生干部</span></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 科研项目 Funding ==================== -->
+<section class="section" id="funding">
+  <div class="wrap">
+    <h2><span class="en">Funding</span><span class="zh">科研项目</span><img class="cat" src="assets/cats/funding.svg" alt="" width="96" height="103"></h2>
+    <ul class="rows">
+      <li><span class="when">2024–2026</span><span><span class="en">“Enhancing Mental Wellbeing: Sensing and Early Intervention for University Students”. <em>Young Scientists Fund of the National Natural Science Foundation of China</em> (国家自然科学基金青年科学基金, Grant No. 62302252). Sole Principal Investigator (￥300k).</span><span class="zh">“Enhancing Mental Wellbeing: Sensing and Early Intervention for University Students”，国家自然科学基金青年科学基金项目（批准号 62302252），独立主持，30 万元。</span></span></li>
+      <li><span class="when">2023–2025</span><span><span class="en">“Interactive Perception and Intervention of Psychological Wellbeing”. <em>China Postdoctoral Science Foundation</em> (中国博士后科学基金第73批面上资助, Grant No. 2023M731949). Sole Principal Investigator (￥80k).</span><span class="zh">“Interactive Perception and Intervention of Psychological Wellbeing”，中国博士后科学基金第 73 批面上资助（资助编号 2023M731949），独立主持，8 万元。</span></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 教学 Teaching ==================== -->
+<section class="section" id="teaching">
+  <div class="wrap">
+    <h2><span class="en">Teaching</span><span class="zh">教学</span><img class="cat" src="assets/cats/teaching.svg" alt="" width="96" height="103"></h2>
+    <ul class="rows">
+      <li><span class="when"><span class="en">2025 S1</span><span class="zh">2025 春</span></span><span><span class="en"><strong>Lecturer</strong>, Software Engineering, Nankai University</span><span class="zh"><strong>主讲教师</strong>，软件工程，南开大学</span></span></li>
+      <li><span class="when"><span class="en">2023 S1</span><span class="zh">2023 第一学期</span></span><span><span class="en"><strong>Tutor</strong>, <em>Mind, Individual and Culture</em> (10700073), Tsinghua University</span><span class="zh"><strong>助教</strong>，<em>Mind, Individual and Culture</em>（10700073），清华大学</span></span></li>
+      <li><span class="when"><span class="en">2021 S2</span><span class="zh">2021 第二学期</span></span><span><span class="en"><strong>Tutor</strong>, <em>Foundations of Artificial Intelligence</em> (COSC2960), CSIT@RMIT</span><span class="zh"><strong>助教</strong>，<em>Foundations of Artificial Intelligence</em>（COSC2960），RMIT 大学</span></span></li>
+      <li><span class="when"><span class="en">2021 S1</span><span class="zh">2021 第一学期</span></span><span><span class="en"><strong>Tutor</strong>, <em>Advanced Programming Techniques</em> (COSC1076), CSIT@RMIT</span><span class="zh"><strong>助教</strong>，<em>Advanced Programming Techniques</em>（COSC1076），RMIT 大学</span></span></li>
+      <li><span class="when"><span class="en">2020 S1</span><span class="zh">2020 第一学期</span></span><span><span class="en"><strong>Tutor</strong>, <em>User-Centred Design</em> (COSC2628), CSIT@RMIT</span><span class="zh"><strong>助教</strong>，<em>User-Centred Design</em>（COSC2628），RMIT 大学</span></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 学术报告 Talks ==================== -->
+<section class="section" id="talks">
+  <div class="wrap">
+    <h2><span class="en">Talks</span><span class="zh">学术报告</span><img class="cat" src="assets/cats/talks.svg" alt="" width="96" height="103"></h2>
+    <ul class="rows narrow">
+      <li><span class="when">2025</span><span><span class="en"><strong>Invited speaker</strong>, N2Women Panel Discussion “Women in Research: Navigating Challenges and Building Futures”, UbiComp 2025, Finland. Oct 14.</span><span class="zh">UbiComp 2025 N2Women 圆桌讨论“Women in Research: Navigating Challenges and Building Futures”<strong>特邀嘉宾</strong>，芬兰，10 月 14 日。</span></span></li>
+      <li><span class="when">2025</span><span><span class="en"><strong>Invited talk</strong>, HCI+ Summer Training Program, online. Aug 31.</span><span class="zh">HCI+ 暑期培训项目<strong>特邀报告</strong>，线上，8 月 31 日。</span></span></li>
+      <li><span class="when">2024</span><span><span class="en">“Leveraging large language models for generating mobile sensing strategies in human behaviour modelling”. <strong>Invited talk</strong>, UNSW Sydney, Australia. Oct 15.</span><span class="zh">“利用大语言模型生成人类行为建模中的移动感知策略”，新南威尔士大学（UNSW）<strong>特邀报告</strong>，澳大利亚悉尼，10 月 15 日。</span></span></li>
+      <li><span class="when">2024</span><span><span class="en">“Sensing human behaviours and mental wellbeing in real-world scenarios”. <strong>Invited talk</strong>, the University of Melbourne, Australia. Jul 23.</span><span class="zh">“真实场景中的人类行为与心理健康感知”，墨尔本大学<strong>特邀报告</strong>，澳大利亚，7 月 23 日。</span></span></li>
+      <li><span class="when">2023</span><span><span class="en"><strong>Keynote</strong> (Chinese side), China-Japan-ROK Youth International Seminar, organised by the Chinese Society of Astronautics, Northwestern Polytechnical University, the “Belt and Road” Space Innovation Alliance and the China Academy of Launch Vehicle Technology. Apr 23.</span><span class="zh">中日韩青年国际研讨会<strong>中方主旨报告</strong>（主办：中国宇航学会、西北工业大学、“一带一路”航天创新联盟、中国运载火箭技术研究院），4 月 23 日。</span></span></li>
+      <li><span class="when">2022</span><span><span class="en"><strong>Invited talk</strong>, Access Computing Summer Program (ACSP), a program sponsored by the <a href="https://gixnetwork.org/">Global Innovation Exchange (GIX)</a> of the University of Washington and Tsinghua University. Aug 10.</span><span class="zh">Access Computing Summer Program（ACSP）<strong>特邀报告</strong>，该项目由华盛顿大学与清华大学共建的<a href="https://gixnetwork.org/">全球创新学院（GIX）</a>支持，8 月 10 日。</span></span></li>
+      <li><span class="when">2022</span><span><span class="en">“Human psychological data acquisition, perception and modelling in real-world scenarios”. <strong>Invited talk</strong>, Institute for AI Industry Research (AIR), Tsinghua University, China. Jun 16.</span><span class="zh">“真实场景下人类心理数据的采集、感知与建模”，清华大学智能产业研究院（AIR）<strong>特邀报告</strong>，6 月 16 日。</span></span></li>
+      <li><span class="when">2022</span><span><span class="en">“Suggestions for fresh PhD candidates”. <strong>Invited talk</strong>, School of Computer Science, Northwestern Polytechnical University (NWPU), China. Jun 3.</span><span class="zh">“给博士新生的建议”，西北工业大学计算机学院<strong>特邀报告</strong>，6 月 3 日。</span></span></li>
+      <li><span class="when">2022</span><span><span class="en">“Human behaviour sensing and modelling in the wild”. <strong>Guest lecture</strong>, Practical Data Science course, RMIT University, Australia. May 19.</span><span class="zh">“真实场景中的人类行为感知与建模”，RMIT 大学 Practical Data Science 课程<strong>客座讲座</strong>，澳大利亚，5 月 19 日。</span></span></li>
+      <li><span class="when">2022</span><span><span class="en">“Insights about undertaking a research program to new candidates”. <strong>Invited panel speaker</strong>, Higher Degree by Research (HDR) orientation, RMIT University, Australia. Apr 6.</span><span class="zh">“面向研究生新生的科研经验分享”，RMIT 大学研究型研究生（HDR）入学培训<strong>特邀圆桌嘉宾</strong>，澳大利亚，4 月 6 日。</span></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 学术服务 Service ==================== -->
+<section class="section" id="service">
+  <div class="wrap">
+    <h2><span class="en">Service</span><span class="zh">学术服务</span><img class="cat" src="assets/cats/service.svg" alt="" width="96" height="103"></h2>
+    <div>
+      <h3><span class="en">Editorial and organising roles</span><span class="zh">编委与会议组织</span></h3>
+      <ul class="svc">
+        <li><span class="role-name"><span class="en">Associate Editor</span><span class="zh">副编辑（Associate Editor）</span></span><span><a href="https://dl.acm.org/journal/imwut">IMWUT</a> <span class="en">(since 2025)</span><span class="zh">（2025 年起）</span></span></li>
+        <li><span class="role-name"><span class="en">Chair</span><span class="zh">主席</span></span><span><a href="https://www.ubicomp.org/ubicomp-iswc-2026/organizing-committee-2/">UbiComp ’26 Student Competition and Challenges</a>, <a href="https://www.ubicomp.org/ubicomp-iswc-2025/organizing-committee/">UbiComp ’25 Student Competition and Challenges</a>, <a href="https://ubisense2025.github.io/organizers.html">UbiComp/ISWC ’25 UbiSense Workshop</a></span></li>
+        <li><span class="role-name"><span class="en">Associate Chair (AC)</span><span class="zh">AC（Associate Chair）</span></span><span><a href="https://chi2026.acm.org/authors/papers/selecting-a-subcommittee/">CHI ’26</a>, <a href="https://idc.acm.org/2026">IDC ’26</a>, <a href="https://idc.acm.org/2025/">IDC ’25</a>, <a href="https://mobilehci.acm.org/2024/">MobileHCI ’24</a></span></li>
+        <li><span class="role-name"><span class="en">Program Chair</span><span class="zh">程序主席</span></span><span><a href="https://mp.weixin.qq.com/s/AVSiif6D_Yl8z-a9xDghQg">ACSP ’24</a></span></li>
+        <li><span class="role-name"><span class="en">Technical Program Committee</span><span class="zh">程序委员会委员（TPC）</span></span><span><a href="https://percom.org/program-committee/">PerCom ’26</a>, <a href="https://wellcomp2024.github.io/index.html">UbiComp WellComp Workshop ’25, ’24</a>, <a href="https://mobilehci.acm.org/2024/">MobileHCI ’24</a>, <a href="https://buildsys.acm.org/2023/">BuildSys ’23</a>, <a href="https://crowdos.cn/AIoTSys/#/">AIoTSys ’23</a>, <a href="https://ictceel.khwopaconference.com/site/scientific_committee.html">ICT-CEEEL ’23</a>, <a href="https://www.comtec.eecs.uni-kassel.de/emotionaware/">PerCom EmotionAware Workshop ’24, ’23</a></span></li>
+        <li><span class="role-name"><span class="en">Guest Editor</span><span class="zh">客座编辑</span></span><span><a href="https://www.frontiersin.org/research-topics/53701/trends-and-challenges-of-ubiquitous-computing-in-smart-cities">Frontiers in Sustainable Cities</a>, <a href="https://www.mdpi.com/journal/electronics/special_issues/940KR2O490">Electronics</a></span></li>
+        <li><span class="role-name"><span class="en">Publicity Chair</span><span class="zh">宣传主席</span></span><span><a href="https://crowdos.cn/AIoTSys/#/">AIoTSys 2023</a></span></li>
+        <li><span class="role-name"><span class="en">Session Chair</span><span class="zh">分会场主席</span></span><span><a href="https://ubicomp.org/ubicomp2022/">UbiComp 2022</a></span></li>
+      </ul>
+
+      <h3><span class="en">Reviewing</span><span class="zh">审稿</span></h3>
+      <ul class="svc">
+        <li><span class="role-name"><span class="en">Conferences</span><span class="zh">会议</span></span><span>CHI ’26, ’25, ’24, ’23; UbiComp ’25, ’24, ’23, ’22, ’21, ’19; MobileHCI ’24; MUM ’23; HHME ’23; PerCom ’22; NeurIPS ’22; BuildSys ’21</span></li>
+        <li><span class="role-name"><span class="en">Journals</span><span class="zh">期刊</span></span><span>Nature Human Behaviour, IMWUT, IJHCS, Computers &amp; Education, Building and Environment, Scientific Reports, IEEE Transactions on Multimedia, Pervasive and Mobile Computing (PMC), ACM Transactions on Intelligent Systems and Technology (TIST), Energy and Buildings, Applied Energy, Neurocomputing, Expert Systems with Applications<span class="en">, etc.</span><span class="zh"> 等</span></span></li>
+      </ul>
+
+      <h3><span class="en">Professional memberships</span><span class="zh">学会任职</span></h3>
+      <ul class="plain">
+        <li><span class="en">Executive Member, <a href="https://www.ccf.org.cn/Chapters/TC/TC_Listing/TCHCI/">CCF Technical Committee of Human-Computer Interaction</a></span><span class="zh"><a href="https://www.ccf.org.cn/Chapters/TC/TC_Listing/TCHCI/">中国计算机学会人机交互专业委员会</a>执行委员</span></li>
+        <li><span class="en">Executive Member, <a href="https://www.ccf.org.cn/Chapters/TC/TC_Listing/TCPC/">CCF Technical Committee of Ubiquitous Computing</a></span><span class="zh"><a href="https://www.ccf.org.cn/Chapters/TC/TC_Listing/TCPC/">中国计算机学会普适计算专业委员会</a>执行委员</span></li>
+        <li><span class="en">Member, <a href="http://www.csig.org.cn/detail/2490">CSIG Technical Committee on Human-Computer Interaction</a></span><span class="zh"><a href="http://www.csig.org.cn/detail/2490">中国图象图形学学会人机交互专业委员会</a>委员</span></li>
+        <li><span class="en">Student Expert Member, <a href="https://annex79.iea-ebc.org/">IEA EBC Annex 79</a></span><span class="zh"><a href="https://annex79.iea-ebc.org/">IEA EBC Annex 79</a> 学生专家成员</span></li>
+        <li>DAAD AInet Fellow</li>
+      </ul>
+
+      <h3><span class="en">Administrative service</span><span class="zh">行政服务</span></h3>
+      <ul class="plain">
+        <li><span class="en">HDR student representative, Research Training and Development Committee, <a href="https://www.admscentre.org.au/">ARC Centre of Excellence for Automated Decision-Making and Society</a> (ADM+S)</span><span class="zh"><a href="https://www.admscentre.org.au/">澳大利亚研究理事会自动化决策与社会卓越研究中心</a>（ADM+S）研究培训与发展委员会研究生代表</span></li>
+        <li><span class="en">Member, <a href="https://www.ccf.org.cn/About_CCF/Governance/Working_Committees/Science_Popularization/">CCF Science Popularization Working Committee</a></span><span class="zh"><a href="https://www.ccf.org.cn/About_CCF/Governance/Working_Committees/Science_Popularization/">中国计算机学会科学普及工作委员会</a>委员</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 个人 Personal ==================== -->
+<section class="section" id="personal">
+  <div class="wrap">
+    <h2><span class="en">Personal</span><span class="zh">个人</span><img class="cat" src="assets/cats/personal.svg" alt="" width="96" height="103"></h2>
+    <ul class="personal">
+      <li><span class="k"><span class="en">Reading</span><span class="zh">阅读</span></span><span><span class="en">I enjoy reading books from many areas, including psychology, physiology, philosophy, anthropology, sociology, ethics and science fiction.</span><span class="zh">喜欢阅读各领域的书，包括心理学、生理学、哲学、人类学、社会学、伦理学和科幻等。</span></span></li>
+      <li><span class="k"><span class="en">Backpacking</span><span class="zh">户外</span></span><span><span class="en">I was the leader and organiser of <em>Fengxinzi</em>, the largest outdoor club at BIT.</span><span class="zh">曾任北京理工大学最大的户外社团“风信子”负责人与组织者。</span></span></li>
+      <li><span class="k"><span class="en">Writing</span><span class="zh">写作</span></span><span><span class="en">I love writing popular science articles, although I often can’t help mixing in some chicken soup for the soul :/</span><span class="zh">喜欢写科普文章，只是常常忍不住掺点心灵鸡汤 :/</span></span></li>
+      <li><span class="k"><span class="en">Motto</span><span class="zh">座右铭</span></span><span><span class="quote"><span class="en">Know thyself.</span><span class="zh">认识你自己。</span></span><br><span class="en">One of the Delphic maxims, inscribed in the forecourt of the <a href="https://en.wikipedia.org/wiki/Temple_of_Apollo_(Delphi)">Temple of Apollo at Delphi</a>.</span><span class="zh">德尔斐箴言之一，刻于<a href="https://en.wikipedia.org/wiki/Temple_of_Apollo_(Delphi)">德尔斐阿波罗神庙</a>的前庭。</span></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 联系 Contact ==================== -->
+<section class="section" id="contact">
+  <div class="wrap">
+    <h2><span class="en">Contact</span><span class="zh">联系方式</span><img class="cat" src="assets/cats/contact.svg" alt="" width="96" height="103"></h2>
+    <div>
+      <ul class="contact">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg><span><a href="mailto:nan.gao@nankai.edu.cn">nan.gao@nankai.edu.cn</a></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span><span class="en">Room 3-420, Nankai University, New Binhai Area, Tianjin, China</span><span class="zh">中国天津市滨海新区 南开大学 3-420 室</span></span></li>
+      </ul>
+      <div class="map"><script id="clustrmaps" src="https://cdn.clustrmaps.com/map_v2.js?cl=ffffff&amp;w=a&amp;t=m&amp;d=V7NH5ePVDbWTdq0QJS3-WomEu_Emuhkxu0NUiqN0oMg&amp;co=81aece&amp;cmo=e57a5a&amp;cmn=1d81c6" type="text/javascript"></script></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Nan Gao</div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var titles = { en: 'Nan Gao | Nankai University', zh: '高楠 | 南开大学' };
+
+  /* ---------- 语言切换 ---------- */
+  function setLang(lang) {
+    root.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.title = titles[lang];
+    document.querySelectorAll('.lang-switch button').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false');
+    });
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+  }
+  setLang(root.lang === 'zh-CN' ? 'zh' : 'en');
+  document.querySelectorAll('.lang-switch button').forEach(function (b) {
+    b.addEventListener('click', function () { setLang(b.dataset.lang); });
+  });
+
+  /* ---------- 外链在新标签页打开 ---------- */
+  document.querySelectorAll('a[href^="http"]').forEach(function (a) {
+    a.target = '_blank'; a.rel = 'noopener';
+  });
+
+  /* ---------- 导航：离开首屏后渐显，回到顶部渐隐 ---------- */
+  var nav = document.querySelector('.topnav');
+  var hero = document.querySelector('.hero');
+  function toggleNav() {
+    var threshold = Math.min(hero.offsetHeight * 0.5, 360);
+    nav.classList.toggle('show', window.scrollY > threshold);
+  }
+  window.addEventListener('scroll', toggleNav, { passive: true });
+  toggleNav();
+
+  /* ---------- 当前所在版块高亮 ---------- */
+  var links = Array.prototype.slice.call(document.querySelectorAll('.topnav ul a'));
+  var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  function markActive() {
+    var y = window.scrollY + window.innerHeight * 0.3;
+    var idx = 0;
+    targets.forEach(function (t, i) { if (t && t.offsetTop <= y) idx = i; });
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) idx = targets.length - 1;
+    links.forEach(function (a, i) { a.classList.toggle('active', i === idx); });
+    var active = links[idx];
+    if (active && nav.classList.contains('show')) {
+      var ul = active.parentNode.parentNode;
+      var l = active.offsetLeft, r = l + active.offsetWidth;
+      if (l < ul.scrollLeft || r > ul.scrollLeft + ul.clientWidth) ul.scrollTo({ left: l - 20, behavior: 'smooth' });
+    }
+  }
+  window.addEventListener('scroll', markActive, { passive: true });
+  markActive();
+})();
+</script>
+</body>
+</html>
